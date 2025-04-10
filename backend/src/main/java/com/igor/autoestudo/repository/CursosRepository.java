@@ -3,6 +3,8 @@ package com.igor.autoestudo.repository;
 import com.igor.autoestudo.entity.Cursos;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CursoRepository extends JpaRepository<Cursos, Long> {
-    Cursos findByName(String name);
+import java.util.Optional;
+
+public interface CursosRepository extends JpaRepository<Cursos, Long> {
+    Optional<Cursos> findByName(String name);
 }

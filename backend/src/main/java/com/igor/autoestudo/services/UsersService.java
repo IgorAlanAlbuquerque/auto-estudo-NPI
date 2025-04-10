@@ -1,8 +1,12 @@
 package com.igor.autoestudo.services;
 
+import com.igor.autoestudo.entity.Cursos;
 import com.igor.autoestudo.entity.Users;
+import com.igor.autoestudo.exception.CursoNaoEncontradoException;
 import com.igor.autoestudo.exception.UsuarioNaoEncontradoException;
+import com.igor.autoestudo.repository.CursosRepository;
 import com.igor.autoestudo.repository.UsersRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,16 +17,18 @@ import java.util.Optional;
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
+    private final CursosRepository cursosRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersService(UsersRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UsersService(UsersRepository userRepository, CursosRepository cursosRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = userRepository;
+        this.cursosRepository = cursosRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     //adiciona um novo usuario
-    public Users addNew(Users users) {
+    public Users addNew(@NotNull Users users) {
         if (usersRepository.findByEmail(users.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Já existe um usuário com esse e-mail.");
         }
@@ -41,7 +47,7 @@ public class UsersService {
     }
 
     //Atualizar usuario
-    public Users atualizar(Long id, Users userAtualizado){
+    public Users atualizar(Long id, @NotNull Users userAtualizado){
         Users userExistente = usersRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException(id));
         userExistente.setName(userAtualizado.getName());
         userExistente.setEmail(userAtualizado.getEmail());
@@ -52,5 +58,44 @@ public class UsersService {
             userExistente.setPassword(passwordEncoder.encode(userAtualizado.getPassword()));
         }
         return usersRepository.save(userExistente);
+    }
+
+    // remover user
+    public void remover(Long id) {
+        Users user = usersRepository.findById(id)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(id));
+
+        if (Boolean.TRUE.equals(user.getAtivo())) {
+            throw new IllegalStateException("Não é possível remover um usuário ativo.");
+        }
+
+        usersRepository.deleteById(id);
+    }
+
+    //autentificar
+    public Optional<Users> autenticar(String email, String senha) {
+        Optional<Users> usuarioOpt = usersRepository.findByEmail(email);
+
+        if (usuarioOpt.isPresent()) {
+            Users usuario = usuarioOpt.get();
+            if (passwordEncoder.matches(senha, usuario.getPassword())) {
+                return Optional.of(usuario);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    //associar usuario a um curso
+    public Users associarCurso(Long usuarioId, Long cursoId) {
+        Users user = usersRepository.findById(usuarioId)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
+
+        Cursos curso = cursosRepository.findById(cursoId)
+                .orElseThrow(() -> new CursoNaoEncontradoException(cursoId));
+
+        user.setCurso(curso);
+
+        return usersRepository.save(user);
     }
 }
