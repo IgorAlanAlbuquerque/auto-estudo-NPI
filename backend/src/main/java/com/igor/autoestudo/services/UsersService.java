@@ -8,6 +8,9 @@ import com.igor.autoestudo.repository.CursosRepository;
 import com.igor.autoestudo.repository.UsersRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsersService {
+public class UsersService implements UserDetailsService {
     private final UsersRepository usersRepository;
     private final CursosRepository cursosRepository;
     private final PasswordEncoder passwordEncoder;
@@ -97,5 +100,11 @@ public class UsersService {
         user.setCurso(curso);
 
         return usersRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return usersRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o email: " + email));
     }
 }
