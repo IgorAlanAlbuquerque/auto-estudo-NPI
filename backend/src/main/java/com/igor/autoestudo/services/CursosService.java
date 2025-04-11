@@ -38,7 +38,7 @@ public class CursosService {
     }
 
     //atualizar curso
-    Cursos atualizar(Long id, @NotNull Cursos cursoAtualizado){
+    public Cursos atualizar(Long id, @NotNull Cursos cursoAtualizado){
         Cursos cursoExistente = cursosRepository.findById(id).orElseThrow(() -> new CursoNaoEncontradoException(id));
 
         cursoExistente.setName(cursoAtualizado.getName());
@@ -49,17 +49,17 @@ public class CursosService {
     }
 
     //listar todos os cursos
-    List<Cursos> listarTodos(){
+    public List<Cursos> listarTodos(){
         return cursosRepository.findAll();
     }
 
     //buscar curso por ID
-    Optional<Cursos> buscarPorId(Long id){
+    public Optional<Cursos> buscarPorId(Long id){
         return cursosRepository.findById(id);
     }
 
     //excluir curso
-    void excluir(Long id){
+    public void excluir(Long id){
         cursosRepository.findById(id)
                 .orElseThrow(() -> new CursoNaoEncontradoException(id));
 

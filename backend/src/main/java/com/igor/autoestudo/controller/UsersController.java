@@ -31,13 +31,7 @@ public class UsersController {
     // POST /usuarios: cadastrar novo usuário
     @PostMapping
     public ResponseEntity<Users> criar(@Valid @RequestBody UsersDTO usersDTO) {
-        Users user = new Users();
-        user.setName(usersDTO.getName());
-        user.setEmail(usersDTO.getEmail());
-        user.setPassword(usersDTO.getPassword());
-        user.setAtivo(usersDTO.getAtivo());
-
-        Users userCriado = usersService.addNew(user);
+        Users userCriado = usersService.addNew(usersDTO.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED).body(userCriado);
     }
 
@@ -49,19 +43,23 @@ public class UsersController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    /*
+    // PUT /usuarios/{id}: atualizar usuário
+    @PutMapping("/{id}")
+    public ResponseEntity<Users> atualizar(@PathVariable Long id, @Valid @RequestBody UsersDTO usersDTO) {
+        Users userAtualizado =usersService.atualizar(id, usersDTO.toEntity());
+        return ResponseEntity.ok(userAtualizado);
+    }
 
+    // DELETE /usuarios/{id}: remover (se inativo)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Long id) {
+        usersService.remover(id);
+        return ResponseEntity.noContent().build();
+    }
 
-
-
-
-
-PUT /usuarios/{id}: atualizar usuário
-
-DELETE /usuarios/{id}: remover (se inativo)
-
-POST /usuarios/{id}/curso/{cursoId}: associar usuário a um curso
-
-POST /login: autenticação
-     */
+    // POST /usuarios/{id}/curso/{cursoId}: associar usuário a um curso
+    @PostMapping("/{id}/curso/{cursoId}")
+    public ResponseEntity<Users> associarCurso(@PathVariable Long id, @PathVariable Long cursoId) {
+        return ResponseEntity.ok(usersService.associarCurso(id, cursoId));
+    }
 }
