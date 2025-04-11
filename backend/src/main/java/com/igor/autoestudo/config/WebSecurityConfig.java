@@ -5,6 +5,7 @@ import com.igor.autoestudo.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -23,7 +24,7 @@ public class WebSecurityConfig {
     private final UsersService usersService;
 
     @Autowired
-    public WebSecurityConfig(JwtAuthFilter jwtAuthFilter, UsersService usersService) {
+    public WebSecurityConfig(@Lazy JwtAuthFilter jwtAuthFilter,@Lazy UsersService usersService) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.usersService = usersService;
     }

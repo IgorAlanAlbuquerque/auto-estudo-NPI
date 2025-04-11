@@ -4,6 +4,7 @@ import com.igor.autoestudo.services.UsersService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UsersService usersService;
 
-    public JwtAuthFilter(JwtUtil jwtUtil, UsersService usersService) {
+    public JwtAuthFilter(JwtUtil jwtUtil,@Lazy UsersService usersService) {
         this.jwtUtil = jwtUtil;
         this.usersService = usersService;
     }
