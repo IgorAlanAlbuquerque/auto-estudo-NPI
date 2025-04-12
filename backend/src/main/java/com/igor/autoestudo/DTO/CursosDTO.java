@@ -3,6 +3,7 @@ package com.igor.autoestudo.DTO;
 import com.igor.autoestudo.entity.Cursos;
 import com.igor.autoestudo.entity.Turno;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class CursosDTO {
     @Size(min = 2, max = 2, message = "A sigla deve ter exatamente 2 caracteres.")
     String sigla;
 
-    @NotBlank
+    @NotNull
     Turno turno;
 
     public Cursos toEntity() {
