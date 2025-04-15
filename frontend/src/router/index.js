@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import DashBoard from '@/views/DashBoard.vue'
+import EntidadesLista from '@/views/EntidadesLista.vue'
+import UsuarioCadastro from '@/views/UsuarioCadastro.vue'
+import EntidadesExcluir from '@/views/EntidadesExcluir.vue'
 
 const routes = [
   {
@@ -18,6 +21,30 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: DashBoard,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/:entidade',
+    name: 'ListaEntidades',
+    component: EntidadesLista,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/usuarios/novo',
+    name: 'UsuarioCadastro',
+    component: UsuarioCadastro,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/:entidade/:id',
+    name: 'EntidadesExcluir',
+    component: EntidadesExcluir,
     meta: {
       requiresAuth: true,
     },

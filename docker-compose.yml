@@ -17,7 +17,7 @@ services:
 
   backend:
     build:
-      context: ./backend  # ajuste o caminho se necessário
+      context: ./backend
     container_name: backend-container
     depends_on:
       - postgres

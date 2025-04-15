@@ -38,7 +38,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import api from '@/api/axios'
 
 const email = ref('')
 const senha = ref('')
@@ -46,16 +46,15 @@ const router = useRouter()
 
 async function handleLogin() {
   try {
-    const response = await axios.post('http://localhost:8080/login', {
+    const response = await api.post('/login', {
       email: email.value,
       senha: senha.value,
     })
 
-    console.log(response)
-    const token = response.data.token
+    const token = response.data.split(' ')[1]
     localStorage.setItem('token', token)
 
-    router.push('/dashboard') // ou a rota que você quiser
+    router.push('/dashboard')
   } catch {
     alert('Email ou senha inválidos')
   }

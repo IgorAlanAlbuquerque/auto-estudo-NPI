@@ -9,16 +9,16 @@
         <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/novo')"
           >Cadastrar Usuário</v-btn
         >
-        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/:id')"
-          >Detalhes do Usuário</v-btn
+        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/buscar')"
+          >Buscar Usuário</v-btn
         >
-        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/:id/editar')"
+        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/editar')"
           >Editar Usuário</v-btn
         >
-        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/:id/excluir')"
+        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/excluir')"
           >Excluir Usuário</v-btn
         >
-        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/:id/associar-curso')"
+        <v-btn block class="mb-2" color="primary" @click="goTo('/usuarios/associar-curso')"
           >Associar Curso</v-btn
         >
       </v-col>
@@ -29,13 +29,13 @@
         <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/novo')"
           >Cadastrar Curso</v-btn
         >
-        <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/:id')"
-          >Detalhes do Curso</v-btn
+        <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/buscar')"
+          >Buscar Curso</v-btn
         >
-        <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/:id/editar')"
+        <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/editar')"
           >Editar Curso</v-btn
         >
-        <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/:id/excluir')"
+        <v-btn block class="mb-2" color="secondary" @click="goTo('/cursos/excluir')"
           >Excluir Curso</v-btn
         >
       </v-col>
