@@ -1,9 +1,0 @@
-  frontend:
-    build:
-      context: ./frontend
-    container_name: frontend-container
-    depends_on:
-      - backend
-    ports:
-      - "8081:80"
-    restart: always
