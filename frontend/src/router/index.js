@@ -5,6 +5,10 @@ import DashBoard from '@/views/DashBoard.vue'
 import EntidadesLista from '@/views/EntidadesLista.vue'
 import UsuarioCadastro from '@/views/UsuarioCadastro.vue'
 import EntidadesExcluir from '@/views/EntidadesExcluir.vue'
+import CursoCadastro from '@/views/CursoCadastro.vue'
+import UsuarioEditar from '@/views/UsuarioEditar.vue'
+import CursoEditar from '@/views/CursoEditar.vue'
+import EntidadesBuscar from '@/views/EntidadesBuscar.vue'
 
 const routes = [
   {
@@ -42,9 +46,41 @@ const routes = [
     },
   },
   {
+    path: '/cursos/novo',
+    name: 'CursoCadastro',
+    component: CursoCadastro,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/:entidade/:id',
     name: 'EntidadesExcluir',
     component: EntidadesExcluir,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/:entidade/buscar',
+    name: 'EntidadesBuscar',
+    component: EntidadesBuscar,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/usuarios/editar',
+    name: 'UsuarioEditar',
+    component: UsuarioEditar,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/cursos/editar',
+    name: 'CursoEditar',
+    component: CursoEditar,
     meta: {
       requiresAuth: true,
     },

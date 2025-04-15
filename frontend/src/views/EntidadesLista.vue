@@ -41,7 +41,7 @@ const titulo = computed(() => (entidade === 'usuarios' ? 'Usuários' : 'Cursos')
 
 onMounted(async () => {
   const token = localStorage.getItem('token')
-  const response = await api.get('/${entidade}', {
+  const response = await api.get(`/${entidade}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   dados.value = response.data

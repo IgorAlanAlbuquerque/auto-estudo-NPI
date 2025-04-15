@@ -36,13 +36,11 @@ const usuario = ref({
 const cadastrarUsuario = async () => {
   try {
     const token = localStorage.getItem('token')
-    console.log('Token:', token)
-    const response = await api.post('/usuarios', usuario.value, {
+    await api.post('/usuarios', usuario.value, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    console.log('Usuário cadastrado:', response.data)
     router.push('/dashboard')
   } catch (error) {
     console.error('Erro ao cadastrar usuário:', error)
