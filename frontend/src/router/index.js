@@ -9,6 +9,7 @@ import CursoCadastro from '@/views/CursoCadastro.vue'
 import UsuarioEditar from '@/views/UsuarioEditar.vue'
 import CursoEditar from '@/views/CursoEditar.vue'
 import EntidadesBuscar from '@/views/EntidadesBuscar.vue'
+import UsuarioAssociarCurso from '@/views/UsuarioAssociarCurso.vue'
 
 const routes = [
   {
@@ -81,6 +82,14 @@ const routes = [
     path: '/cursos/editar',
     name: 'CursoEditar',
     component: CursoEditar,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/usuarios/associar-curso',
+    name: 'UsuarioAssociarCurso',
+    component: UsuarioAssociarCurso,
     meta: {
       requiresAuth: true,
     },

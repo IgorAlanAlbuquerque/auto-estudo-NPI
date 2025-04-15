@@ -27,7 +27,7 @@
         </v-col>
 
         <v-col v-if="entidade === 'usuarios'" cols="12" md="6">
-          <div><strong>Curso:</strong> {{ resultado.curso }}</div>
+          <div><strong>Curso:</strong> {{ resultado.curso.name }}</div>
         </v-col>
 
         <v-col v-if="entidade === 'cursos'" cols="12" md="6">
